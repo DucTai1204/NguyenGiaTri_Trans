@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sơn Mài AI | Phong cách Nguyễn Gia Trí</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --son-mau-den: #1a1a1a;
+            --son-mau-do: #8B0000;
+            --son-mau-vang: #D4AF37;
+            --son-mau-kem: #F5E6BE;
+        }
+
+        body {
+            background-color: var(--son-mau-den);
+            background-image: radial-gradient(circle at center, #2c2c2c 0%, #1a1a1a 100%);
+            color: var(--son-mau-kem);
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+        }
+
+        header {
+            border-bottom: 2px solid var(--son-mau-vang);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+            background: linear-gradient(to bottom, #252525, #1a1a1a);
+        }
+
+        h1, h3, h5 {
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 1px;
+        }
+
+        .main-title {
+            color: var(--son-mau-vang);
+            text-transform: uppercase;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .info-section {
+            font-size: 0.9rem;
+            color: #aaa;
+            border-left: 2px solid var(--son-mau-do);
+            padding-left: 15px;
+            display: inline-block;
+            text-align: left;
+        }
+
+        .img-box {
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            min-height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #0d0d0d;
+            border-radius: 8px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Hiệu ứng khung tranh */
+        .img-box::before {
+            content: "";
+            position: absolute;
+            top: 10px; left: 10px; right: 10px; bottom: 10px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            pointer-events: none;
+        }
+
+        img {
+            max-width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+            z-index: 2;
+        }
+
+        .btn-main {
+            background: linear-gradient(135deg, var(--son-mau-do) 0%, #5a0000 100%);
+            color: white;
+            border: 1px solid var(--son-mau-vang);
+            padding: 12px 35px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .btn-main:hover {
+            background: var(--son-mau-vang);
+            color: black;
+            transform: translateY(-2px);
+        }
+
+        .form-control {
+            background-color: #222;
+            border: 1px solid #444;
+            color: white;
+        }
+
+        .form-control:focus {
+            background-color: #333;
+            border-color: var(--son-mau-vang);
+            box-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
+            color: white;
+        }
+
+        .progress {
+            height: 8px;
+            background-color: #111;
+            border-radius: 10px;
+        }
+
+        .progress-bar {
+            background-color: var(--son-mau-vang);
+        }
+
+        footer {
+            margin-top: 50px;
+            padding: 20px;
+            border-top: 1px solid #333;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="py-4 text-center">
+    <div class="container">
+        <h1 class="main-title mb-2">Sơn Mài AI</h1>
+        <h3 class="mb-4" style="color: var(--son-mau-kem); opacity: 0.9;">Mô phỏng phong cách nghệ thuật Nguyễn Gia Trí</h3>
+        
+        <div class="info-section">
+            <p class="mb-1"><strong>Sinh viên thực hiện:</strong> Lê Đức Tài</p>
+            <p class="mb-0"><strong>GVHD:</strong> TS. Lê Hoàng Hiệp</p>
+        </div>
+    </div>
+</header>
+
+<div class="container py-2">
+
+    <div class="row justify-content-center mb-5">
+        <div class="col-md-5">
+            <label class="form-label text-muted small">Chọn hình ảnh để chuyển đổi:</label>
+            <input type="file" class="form-control" id="imageInput" accept="image/*">
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="text-center">
+                <h5 class="mb-3 text-uppercase" style="color: #888;">Ảnh Nguyên Bản</h5>
+                <div class="img-box">
+                    <img id="preview" style="display:none;">
+                    <span id="textOrig" class="text-muted italic">Chưa có dữ liệu đầu vào</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="text-center">
+                <h5 class="mb-3 text-uppercase" style="color: var(--son-mau-vang);">Tác phẩm Sơn Mài</h5>
+                <div class="img-box" style="border-color: var(--son-mau-vang);">
+                    <img id="result" style="display:none;">
+                    <span id="textRes" class="text-muted italic">Đang chờ xử lý...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-5">
+        <div class="col-md-4 mx-auto">
+            <button id="convertBtn" class="btn btn-main w-100 mb-3" onclick="convertImage()">
+                Bắt đầu chuyển đổi
+            </button>
+
+            <div class="progress d-none mb-3" id="progressBox">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" id="progressBar" style="width:0%"></div>
+            </div>
+
+            <a id="downloadBtn" class="btn btn-outline-warning d-none w-100" download="son_mai_nguyen_gia_tri.png">
+                Lưu tác phẩm về máy
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<footer class="text-center text-muted">
+    <p>&copy; 2024 - Đồ án Nghiên cứu Nghệ thuật Sơn mài & Trí tuệ nhân tạo</p>
+</footer>
+
+<script>
+    // Giữ nguyên logic JavaScript của bạn
+    const input = document.getElementById("imageInput");
+    const preview = document.getElementById("preview");
+    const result = document.getElementById("result");
+    const textOrig = document.getElementById("textOrig");
+    const textRes = document.getElementById("textRes");
+    const downloadBtn = document.getElementById("downloadBtn");
+    const convertBtn = document.getElementById("convertBtn");
+    const progressBox = document.getElementById("progressBox");
+    const progressBar = document.getElementById("progressBar");
+
+    input.onchange = () => {
+        const file = input.files[0];
+        if (file) {
+            preview.src = URL.createObjectURL(file);
+            preview.style.display = "block";
+            textOrig.style.display = "none";
+            result.style.display = "none";
+            textRes.style.display = "block";
+            textRes.innerText = "Sẵn sàng chuyển đổi";
+            downloadBtn.classList.add("d-none");
+        }
+    };
+
+    async function convertImage() {
+        if (!input.files[0]) {
+            alert("Vui lòng chọn ảnh");
+            return;
+        }
+
+        convertBtn.disabled = true;
+        convertBtn.innerText = "Đang mài sơn...";
+        progressBox.classList.remove("d-none");
+        
+        let percent = 0;
+        const fakeProgress = setInterval(() => {
+            if (percent < 90) {
+                percent += 5;
+                progressBar.style.width = percent + "%";
+            }
+        }, 300);
+
+        const formData = new FormData();
+        formData.append("image", input.files[0]);
+
+        try {
+            const res = await fetch("/convert", {
+                method: "POST",
+                body: formData
+            });
+
+            const data = await res.json();
+            if (data.error) throw data.error;
+
+            clearInterval(fakeProgress);
+            progressBar.style.width = "100%";
+
+            result.src = "data:image/png;base64," + data.image_base64;
+            result.style.display = "block";
+            textRes.style.display = "none";
+
+            downloadBtn.href = result.src;
+            downloadBtn.classList.remove("d-none");
+
+        } catch (err) {
+            alert("Có lỗi xảy ra trong quá trình xử lý");
+        } finally {
+            convertBtn.disabled = false;
+            convertBtn.innerText = "Bắt đầu chuyển đổi";
+        }
+    }
+</script>
+
+</body>
+</html>
